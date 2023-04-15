@@ -6,3 +6,7 @@ ui/word_master/src/logo.svg
 ui/word_master/src/reportWebVitals.js
 ui/word_master/public/logo512.png
 ui/word_master/public/robots.txt
+*.xml
+*.pyc
+venv/*
+word_master/venv/*
