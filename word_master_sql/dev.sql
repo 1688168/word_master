@@ -1,1 +1,2 @@
-use WordMaster;
+select *
+from wm.WordMaster
