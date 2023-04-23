@@ -5,7 +5,7 @@ export async function getWords() {
     //const resp = await axios.get("http://localhost:5000/wm/get_words");
     const { data } = await axios({
       method: "get",
-      url: "http://localhost:5000/wm/get_words",
+      url: "http://localhost:5000/wm/get_words_mongo",
       headers: {
         "Cache-Control": "no-cache",
         "Access-Control-Allow-Origin": "*",

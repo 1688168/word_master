@@ -1,6 +1,7 @@
 from flask  import Blueprint, make_response, jsonify, request
 import pandas as pd
 import json, random
+from datetime import datetime as dt
 import numpy as np
 
 
@@ -45,14 +46,7 @@ def get_words():
 @wm.route("/insert_a_word", methods=['POST'])
 def insert_a_word(word=None):
     """
-    search = request.args.get("search")
-    page = request.args.get("page")
 
-    email = request.form.get('email')
-    password = request.form.get('password')
-
-    from flask import request
-    request.data
     """
 
     if word is None:
@@ -74,5 +68,55 @@ def insert_a_word(word=None):
 
 
     resp = make_response(jsonify({"msg": "success"}), 200)
+    resp.headers["Content-Type"] = "application/json"
+    return resp
+
+
+
+@wm.route("/insert_a_word_mongo/<string:word>", methods=['POST'])
+@wm.route("/insert_a_word_mongo", methods=['POST'])
+def insert_a_word_mongo(wd=None):
+    """
+    """
+    if wd is None:
+        wd=request.get_json()
+
+    # get all words from SQL
+    wm_conn = wm_db_handle.wm_mongo
+
+    wd['last_update_time'] = dt.now()
+
+    try:
+        wm_conn.wm.insert_one( wd)
+
+
+    except Exception as e:
+        print("mongo insert failed: " + str(e))
+        return make_response(jsonify({"msg": "mongo insert failed: " + str(wd), "error": str(e) }), 500)
+
+
+    resp = make_response(jsonify({"msg": "success"}), 200)
+    resp.headers["Content-Type"] = "application/json"
+    return resp
+
+
+@wm.route("/get_words_mongo", methods=['GET', 'POST'])
+def get_words_mongo():
+
+
+    wm_conn = wm_db_handle.wm_mongo
+
+    try:
+        words=list(wm_conn.wm.find({}, {"_id": 0}))
+        df_words=pd.DataFrame.from_records(words)
+        df_words['last_update_time'] = pd.to_datetime(df_words['last_update_time'], unit='s', format='%m/%d/%y %H:%M:%S').astype(str)
+        print(df_words)
+    except Exception as e:
+        print("mongo get words failed: " + str(e))
+        return make_response(jsonify({"msg": "mongo get words failed: ", "error": str(e) }), 500)
+
+    words_json = json.loads(df_words.to_json(orient='records'))
+
+    resp = make_response(jsonify({"msg": "success", "data": words_json}), 200)
     resp.headers["Content-Type"] = "application/json"
     return resp
