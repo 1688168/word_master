@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
 }));
-
 function ElevationScroll(props) {
   const { children } = props;
   // Note that you normally won't need to set the window ref as useScrollTrigger
@@ -38,8 +37,9 @@ function ElevationScroll(props) {
 }
 
 const Header = () => {
-  const classes = useStyles();
   const theme = useTheme();
+  const classes = useStyles();
+
   return (
     <React.Fragment>
       <ElevationScroll>
