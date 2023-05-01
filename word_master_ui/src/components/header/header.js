@@ -5,6 +5,21 @@ import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
+
+function ElevationScroll(props) {
+  const { children } = props;
+  // Note that you normally won't need to set the window ref as useScrollTrigger
+  // will default to window.
+  // This is only being set here because the demo is in an iframe.
+  const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  });
+
+  return React.cloneElement(children, {
+    elevation: trigger ? 4 : 0,
+  });
+}
 const useStyles = makeStyles((theme) => ({
   toolbarMargin: {
     ...theme.mixins.toolbar,
@@ -21,24 +36,9 @@ const useStyles = makeStyles((theme) => ({
     margin: "1rem",
   },
 }));
-function ElevationScroll(props) {
-  const { children } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
-
-  return React.cloneElement(children, {
-    elevation: trigger ? 4 : 0,
-  });
-}
-
 const Header = () => {
   const theme = useTheme();
-  const classes = useStyles();
+  const classes = useStyles(theme);
 
   return (
     <React.Fragment>

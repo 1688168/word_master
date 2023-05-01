@@ -1,13 +1,13 @@
-import { makeStyles } from "@mui/styles";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 const arcBlue = "#0B72B9";
 const arcOrange = "#FFBA60";
 
-export default createTheme({
+const theme = createTheme({
   palette: {
     common: {
       blue: `${arcBlue}`,
+
       orange: `${arcOrange}`,
     },
     primary: {
@@ -19,3 +19,5 @@ export default createTheme({
   },
   typography: {},
 });
+
+export default theme;

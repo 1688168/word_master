@@ -6,7 +6,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { getWords } from "../../services/wm_services";
 import Container from "@mui/material/Container";
-import { makeStyles, useTheme } from "@mui/styles";
+import { makeStyles } from "@mui/styles";
 
 const override = {
   display: "block",
@@ -29,7 +29,11 @@ function Main() {
   const [columnDefs] = useState([
     { field: "word" },
     { field: "def" },
-    { field: "note" },
+    { field: "notes" },
+    { field: "SuccessRate" },
+    { field: "ReviewCnt" },
+    { field: "ReviewCorrectCnt" },
+    { field: "LastReviewDate" },
     { field: "last_update_time" },
   ]);
 
