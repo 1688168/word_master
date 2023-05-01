@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   field: { padding: "20em", width: "500px" },
 }));
 
-const Admin = (props) => {
+const Admin = ({ open, onClose }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -105,6 +105,13 @@ const Admin = (props) => {
         ></TextField>
         <Button variant="contained" type="submit" className={classes.button}>
           Submit
+        </Button>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => onClose()}
+        >
+          Close
         </Button>
       </Stack>
     </form>

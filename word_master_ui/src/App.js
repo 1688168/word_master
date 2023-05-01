@@ -15,7 +15,6 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/admin" element={<Admin />} />
         </Routes>
         <Footer />
       </QueryClientProvider>

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 
 function ElevationScroll(props) {
   const { children } = props;
@@ -49,9 +48,6 @@ const Header = () => {
             <Grid container>
               <grid item className={classes._grid}>
                 <Link to="/">main</Link>
-              </grid>
-              <grid item className={classes._grid}>
-                <Link to="/admin">Admin</Link>
               </grid>
             </Grid>
           </Toolbar>
