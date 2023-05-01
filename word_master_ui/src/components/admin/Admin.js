@@ -3,8 +3,9 @@ import { Formik, Field, Form, ErrorMessage, useFormik } from "formik";
 import { makeStyles, useTheme } from "@mui/styles";
 import * as Yup from "yup";
 import Grid from "@mui/material/Grid";
-import { TextField, Button } from "@mui/material";
+import { TextField, FormControl, Button, Stack } from "@mui/material";
 import { insert_a_word } from "../../services/wm_services";
+import Box from "@mui/material/Box";
 //import theme from "../../Theme";
 
 const WMSchema = Yup.object().shape({
@@ -20,15 +21,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     color: "red",
     padding: "2em",
-    margin: "20em",
     height: "50px",
     backgroundColor: "red",
     "&:hover": {
       backgroundColor: theme.palette.secondary.light,
     },
+    width: "500px",
   },
-  grid: { margin: "20em", padding: "2px", border: "20px" },
-  field: { margin: "2px", width: "500px" },
+  field: { padding: "20em", width: "500px" },
 }));
 
 const Admin = (props) => {
@@ -65,54 +65,49 @@ const Admin = (props) => {
   });
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <Grid container>
-          <Grid item className={classes.grid}>
-            <TextField
-              fullWidth
-              id="word"
-              label="New Word"
-              value={formik.values.word}
-              onChange={formik.handleChange}
-              error={formik.touched.word && Boolean(formik.errors.word)}
-              helperText={formik.touched.word && formik.errors.word}
-              className={classes.field}
-            ></TextField>
-          </Grid>
-          <Grid item className={classes.grid}>
-            <TextField
-              fullWidth
-              id="def"
-              label="Definition"
-              value={formik.values.def}
-              onChange={formik.handleChange}
-              error={formik.touched.def && Boolean(formik.errors.def)}
-              helperText={formik.touched.def && formik.errors.def}
-            ></TextField>
-          </Grid>
-          <Grid item className={classes.grid}>
-            <TextField
-              id="notes"
-              label="notes"
-              value={formik.values.notes}
-              onChange={formik.handleChange}
-              error={formik.touched.notes && Boolean(formik.errors.notes)}
-              helperText={formik.touched.notes && formik.errors.notes}
-              className={classes.field}
-            ></TextField>
-          </Grid>
-        </Grid>
-      </form>
-      <Button
-        variant="contained"
-        type="submit"
-        className={classes.button}
-        sx={{ marginTop: "200px" }}
-      >
-        Submit
-      </Button>
-    </div>
+    <form onSubmit={formik.handleSubmit}>
+      <Stack spacing={2} direction="column" sx={{ marginBottom: 4 }}>
+        <TextField
+          variant="outlined"
+          id="word"
+          label="New Word"
+          value={formik.values.word}
+          onChange={formik.handleChange}
+          error={formik.touched.word && Boolean(formik.errors.word)}
+          helperText={formik.touched.word && formik.errors.word}
+          className={classes.field}
+        ></TextField>
+
+        <TextField
+          variant="outlined"
+          id="def"
+          label="Definition"
+          value={formik.values.def}
+          onChange={formik.handleChange}
+          error={formik.touched.def && Boolean(formik.errors.def)}
+          helperText={formik.touched.def && formik.errors.def}
+          className={classes.field}
+          multiline
+          maxRows={4}
+        ></TextField>
+
+        <TextField
+          variant="outlined"
+          className={classes.field}
+          id="notes"
+          label="notes"
+          value={formik.values.notes}
+          onChange={formik.handleChange}
+          error={formik.touched.notes && Boolean(formik.errors.notes)}
+          helperText={formik.touched.notes && formik.errors.notes}
+          multiline
+          maxRows={4}
+        ></TextField>
+        <Button variant="contained" type="submit" className={classes.button}>
+          Submit
+        </Button>
+      </Stack>
+    </form>
   );
 };
 

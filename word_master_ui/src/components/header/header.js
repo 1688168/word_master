@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Toolbar from "@mui/material/Toolbar";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 function ElevationScroll(props) {
   const { children } = props;
